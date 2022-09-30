@@ -1,4 +1,5 @@
 use image::{GenericImageView};
+use std::env;
 
 fn get_str_ascii(intent :u8)-> &'static str{
     let index = intent/32;
@@ -27,5 +28,7 @@ fn get_image(dir: &str, scale: u32){
     }
 }
 fn main() {
-    get_image("pug.png",4);
+    let args: Vec<String> = env::args().collect();
+    println!("ARGS : {}", &args[1]);
+    get_image(&args[1], 4);
 }
