@@ -10,7 +10,7 @@ fn get_image(dir: &str, columns: u32) {
     let img = image::open(dir).unwrap();
     eprintln!("{:?}", img.dimensions());
     let (width, height) = img.dimensions();
-    let columns = if columns == 0 { 80 } else { columns.min(width) };
+    let columns = if columns == 0 { 80 } else { columns };
     let x_scale = width as f32 / columns as f32;
     let y_scale = x_scale / FONT_RATIO;
     for y in 0.. {
