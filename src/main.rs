@@ -8,7 +8,8 @@ fn get_image(dir: &str, columns: u32) {
     let img = image::open(dir).unwrap();
     println!("{:?}", img.dimensions());
     let (width, height) = img.dimensions();
-    let x_scale = width as f32 / columns.min(width) as f32;
+    let columns = if columns == 0 { 80 } else { columns.min(width) };
+    let x_scale = width as f32 / columns as f32;
     let y_scale = x_scale * 2.;
     for y in 0.. {
         let yy = (y as f32 * y_scale) as u32;
@@ -23,11 +24,7 @@ fn get_image(dir: &str, columns: u32) {
             }
 
             let pix = img.get_pixel(xx, yy);
-            let intensity = if pix[3] == 0 {
-                0
-            } else {
-                pix.to_luma()[0]
-            };
+            let intensity = if pix[3] == 0 { 0 } else { pix.to_luma()[0] };
             print!("{}", get_ascii_pixel(intensity));
         }
 
@@ -36,5 +33,12 @@ fn get_image(dir: &str, columns: u32) {
 }
 
 fn main() {
-    get_image("assets/pug.png", 157);
+    let args: Vec<String> = std::env::args().collect();
+    get_image(
+        args.get(1)
+            .unwrap_or_else(|| panic!("Usage: {} IMAGE-FILE", &args[0])),
+        args.get(2)
+            .and_then(|s| s.parse::<u32>().ok())
+            .unwrap_or_default(),
+    );
 }
