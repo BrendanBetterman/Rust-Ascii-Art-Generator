@@ -6,7 +6,7 @@ const fn get_ascii_pixel(intensity: u8) -> char {
 
 fn get_image(dir: &str, columns: u32) {
     let img = image::open(dir).unwrap();
-    println!("{:?}", img.dimensions());
+    eprintln!("{:?}", img.dimensions());
     let (width, height) = img.dimensions();
     let columns = if columns == 0 { 80 } else { columns.min(width) };
     let x_scale = width as f32 / columns as f32;
