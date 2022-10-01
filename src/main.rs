@@ -36,7 +36,7 @@ fn main() {
     let args: Vec<String> = std::env::args().collect();
     get_image(
         args.get(1)
-            .unwrap_or_else(|| panic!("Usage: {} IMAGE-FILE", &args[0])),
+            .unwrap_or_else(|| panic!("Usage: {} IMAGE-FILE [COLUMNS]", &args[0])),
         args.get(2)
             .and_then(|s| s.parse::<u32>().ok())
             .unwrap_or_default(),
