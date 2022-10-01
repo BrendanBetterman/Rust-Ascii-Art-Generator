@@ -28,5 +28,5 @@ fn get_image(dir: &str, scale: u32) {
 }
 
 fn main() {
-    get_image("pug.png", 4);
+    get_image("assets/pug.png", 4);
 }
