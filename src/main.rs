@@ -1,4 +1,4 @@
-use image::GenericImageView;
+use image::{GenericImageView, Pixel};
 
 const fn get_ascii_pixel(intensity: u8) -> char {
     [' ', '.', ',', '-', '~', '+', '=', '@'][intensity as usize / 32]
@@ -15,7 +15,7 @@ fn get_image(dir: &str, scale: u32) {
                 let intensity = if pix[3] == 0 {
                     0
                 } else {
-                    pix[0] / 3 + pix[1] / 3 + pix[2] / 3
+                    pix.to_luma()[0]
                 };
                 print!("{}", get_ascii_pixel(intensity));
             }
